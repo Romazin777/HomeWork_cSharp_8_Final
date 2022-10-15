@@ -34,9 +34,64 @@
 // 27(0,0,1) 90(0,1,1)
 // 26(1,0,1) 55(1,1,1)
 
-int[,,] array3D = GetOrderArray3D(2, 2, 2, 10);
-PrintArray3D(array3D);
+// int[,,] array3D = GetOrderArray3D(2, 2, 2, 10);
+// PrintArray3D(array3D);
 
+
+// Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4.
+// Например, на выходе получается вот такой массив:
+// 01 02 03 04
+// 12 13 14 05
+// 11 16 15 06
+// 10 09 08 07
+
+int[,] arraySpiral = GetSpiralArray(4);
+PrintArrayPlusZero(arraySpiral);
+
+int[,] GetSpiralArray(int size)
+{
+    int count = 1;
+    int[,] result = new int[size, size];
+    for (int correct = 0; correct < size - 2; correct++)
+    {
+        for (int i = 0 + correct; i < size - correct; i++)
+        {
+            result[0 + correct, i] = count++;
+        }
+        count--;
+        for (int j = 0 + correct; j < size - correct; j++)
+        {
+            result[j, size - 1 - correct] = count++;
+        }
+        count--;
+        for (int i = size - 1 - correct; i >= 0 + correct; i--)
+        {
+            result[size - 1 - correct, i] = count++;
+        }
+        count--;
+        for (int j = size - 1 - correct; j > 0 + correct; j--)
+        {
+            result[j, 0 + correct] = count++;
+        }
+    }
+    return result;
+}
+
+void PrintArrayPlusZero(int[,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            if (array[i, j] < 10) Console.Write($" 0{array[i, j]} ");
+            else
+            {
+            Console.Write($" {array[i, j]} ");
+            }
+        }
+        Console.WriteLine();
+    }
+}
 
 void PrintArray3D(int[,,] array)
 {
@@ -46,7 +101,7 @@ void PrintArray3D(int[,,] array)
         {
             for (int k = 0; k < array.GetLength(2); k++)
             {
-                Console.Write($"{array[i,j,k]}({i},{j},{k}) ");
+                Console.Write($"{array[i, j, k]}({i},{j},{k}) ");
             }
             Console.WriteLine();
         }
@@ -137,7 +192,7 @@ void PrintArray(int[,] array)
     {
         for (int j = 0; j < array.GetLength(1); j++)
         {
-            Console.Write($"{array[i, j]} ");
+            Console.Write($" {array[i, j]} ");
         }
         Console.WriteLine();
     }
