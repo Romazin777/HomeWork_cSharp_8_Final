@@ -8,18 +8,60 @@
 // 9 5 3 2
 // 8 4 4 2
 
+
+// PrintArray(OrderingRowsArray(array));
+
+
+// Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
+// Например, задан массив:
+// 1 4 7 2
+// 5 9 2 3
+// 8 4 2 4
+// 5 2 6 7
+// Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
+
 int[,] array = GetArray(5, 5, 0, 9);
 PrintArray(array);
-Console.WriteLine("В итоге получается вот такой массив: ");
-PrintArray(OrderingRowsArray(array));
+Console.WriteLine($"Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: {MinSumValueRowsArray(array)} строка");
+
+
+
+
+int MinSumValueRowsArray(int[,] array)
+{
+    int minSum = 0;
+    int sum = 0;
+    int minRows = 1;
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        if (i == 0)
+        {
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                minSum += array[i, j];
+            }
+        }
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            sum += array[i, j];
+            if (sum < minSum)
+            {
+                minSum = sum;
+                minRows = i;
+            }    
+        }
+        sum = 0;
+    }
+    return minRows;
+}
 
 int[,] OrderingRowsArray(int[,] array)
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
-        for (int j = 0; j < array.GetLength(1)-1; j++)
+        for (int j = 0; j < array.GetLength(1) - 1; j++)
         {
-            for (int k = j+1; k < array.GetLength(1); k++)
+            for (int k = j + 1; k < array.GetLength(1); k++)
             {
                 if (array[i, j] < array[i, k])
                 {
